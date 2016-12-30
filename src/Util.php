@@ -21,9 +21,4 @@ final class Util{
     	}
     	return $removeEmpty ? array_filter($arr) : $arr;
 	}
-
-	public static function removeUnicodeSequences($string) {
-	   $string = preg_replace("/\\\\\\\\u([a-f0-9]{4})/e", "iconv('UCS-4LE','UTF-8',pack('V', hexdec('U$1')))", json_encode($string));
-	   return $string;
-	}
 }

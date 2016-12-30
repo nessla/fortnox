@@ -76,11 +76,15 @@ abstract class ApiAbstract
 	    	$this->response = $res;
 	    	return $res;	
     	} catch (\Exception $e) {
-    		preg_match('/{"ErrorInformation":{"Error":(\d+),"Message":"(.+)","Code":(\d+)}/i', $e->getMessage(), $matches);
-    		if(isset($matches[0])){
-    			throw new Exception(sprintf("ERROR: %s (%s)",Util::removeUnicodeSequences($matches[2]),$matches[3]),$matches[3]);
-    		}
-    		throw $e;
+            $json = $this->parseJsonResponse($e->getResponse());
+
+            if(isset($json['ErrorInformation'])) {
+                $error = $json['ErrorInformation'];
+                if(isset($error['error'])) {
+                    throw new Exception(sprintf("ERROR: %s (%s)", $error['error'], $error['message']), $error['code']);
+                }
+            }
+            throw $e;
     	}
 
     	return false;
