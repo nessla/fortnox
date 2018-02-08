@@ -10,24 +10,24 @@
 namespace hmphu\fortnox\models;
 
 /**
- * Class TermsOfPayment
+ * Class Unit
  * @package hmphu\fortnox\models
  */
-class TermsOfPayment extends BaseModel
+class Unit extends BaseModel
 {
-    
+
     /**
      * Direct URL to the record
      * @var string
      */
     private $Url;
-    
+
     /**
      * The code of the unit
      * @var string
      */
     public $Code;
-    
+
     /**
      * The description of the unit
      * @var string

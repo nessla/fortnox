@@ -10,10 +10,10 @@
 namespace hmphu\fortnox\request;
 
 /**
- * Class ProjectRequest
+ * Class AccountRequest
  * @package hmphu\fortnox\request
  */
-class ProjectRequest extends RequestAbstract implements RequestInterface
+class AccountRequest extends RequestAbstract implements RequestInterface
 {
 	/**
 	 * @data Array
