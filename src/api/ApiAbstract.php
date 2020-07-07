@@ -65,7 +65,6 @@ abstract class ApiAbstract
 				$this->url . $endpoint,
 				array_merge([
 					'headers' => [
-						'Content-Type' => 'application/json',
 						'Accept' => 'application/json',
 						'Client-Secret' => $this->config->clientSecret,
 						'Access-Token' => $this->config->accessToken

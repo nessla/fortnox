@@ -8,10 +8,13 @@
 
 namespace hmphu\fortnox\api;
 use hmphu\fortnox\request\BasicRequest;
+use hmphu\fortnox\request\FileRequest;
 use hmphu\fortnox\request\PaginatedRequest;
 use hmphu\fortnox\request\SupplierRequest;
 use hmphu\fortnox\models\BaseModel;
+use hmphu\fortnox\models\File;
 use hmphu\fortnox\models\Folder;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * Class ArchiveApi
@@ -82,4 +85,19 @@ class ArchiveApi extends ApiAbstract implements ApiInterface
  	public function delete($supplierNumber){
  		return '';
  	}   
+
+    /**
+     * @param string $path
+     * @param StreamInterface $data
+     * @return File
+     */
+    public function file($path, StreamInterface $data) {
+        $request = new FileRequest($data);
+        $request->method = 'POST';
+        $data = $this->callJson('/archive/?path=' . $path, $request, 'File');
+
+        if(is_array($data)){
+            return new File($data);
+        }
+    }
 }

@@ -9,6 +9,8 @@
 
 namespace hmphu\fortnox\request;
 
+use Psr\Http\Message\StreamInterface;
+
 /**
  * Class FileRequest
  * @package hmphu\fortnox\request
@@ -19,6 +21,11 @@ class FileRequest extends RequestAbstract implements RequestInterface
 	 * @data Array
 	 */
 	function __construct(StreamInterface $data){
-		$this->parameters['body'] = $data;
+		$this->parameters['multipart'] = [
+            [
+                'name' => 'data',
+                'contents' => $data,
+            ],
+        ];
 	}
 }
