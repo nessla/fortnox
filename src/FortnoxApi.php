@@ -18,9 +18,11 @@ use hmphu\fortnox\request\SupplierInvoiceRequest;
 use hmphu\fortnox\request\ProjectRequest;
 use hmphu\fortnox\request\QueryRequest;
 use hmphu\fortnox\request\JsonRequest;
+use hmphu\fortnox\request\VoucherfileConnectionRequest;
 use hmphu\fortnox\models\Project;
 use hmphu\fortnox\models\Customer;
 use hmphu\fortnox\models\Supplier;
+use hmphu\fortnox\models\VoucherFileConnection;
 
 /**
  * Class FortnoxApi
@@ -173,5 +175,19 @@ class FortnoxApi extends ApiAbstract
     	$request = new JsonRequest(['Voucher' => $data]);
     	$request->method = 'POST';
         return $this->callJson('/vouchers', $request, 'Voucher');
+    }
+
+    /**
+     * @param BaseModel $data
+     * @param string $date
+     * @return VoucherFileConnection
+     */
+    public function createVoucherFileConnection($date, $fileId, $VoucherNumber, $VoucherSeries) {
+        $request = new VoucherfileConnectionRequest($fileId, $VoucherNumber, $VoucherSeries);
+        $request->method = 'POST';
+        $data = $this->callJson('/voucherfileconnections?financialyeardate=' . $date, $request, 'VoucherFileConnection');
+        if(is_array($data)){
+            return new VoucherFileConnection($data);
+        }
     }
 }
